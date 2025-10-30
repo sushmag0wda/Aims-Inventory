@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Students | AIMS Inventory{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/students.css' %}">
+{% endblock %}
+
+{# CRITICAL FIX: The main page content must be inside a block, usually 'content' #}
+{% block content %}
+<main class="students-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Student Management</h1>
+        <div class="header-actions">
+            <a href="{% url 'bulk-upload' %}" class="bulk-upload-btn">
+                <i class="fas fa-upload"></i>
+                Bulk Upload
+            </a>
+        </div>
+    </div>
+
+    <!-- Add Student Section -->
+    <div class="add-student-section">
+        <h2>Add New Student</h2>
+        <form class="student-form" id="addStudentForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="course-code">Course Code</label>
+                    <select id="course-code" required>
+                        <option value="">Select Course Code</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="course">Course</label>
+                    <select id="course" required>
+                        <option value="">Select Course</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="academic-year">Academic Year</label>
+                    <select id="academic-year" required>
+                        <option value="">Select Academic Year</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <select id="year" required>
+                        <option value="">Select Year</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="usn">USN</label>
+                    <input type="text" id="usn" placeholder="Enter USN" required>
+                </div>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" placeholder="Enter Name" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="Enter Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" placeholder="Enter Phone" required>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="add-student-btn">
+                    <i class="fas fa-plus"></i>
+                    Add Student
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <h3>Filter Students</h3>
+        <div class="filter-controls">
+            <div class="filter-group">
+                <label for="filter-code">Course Code</label>
+                <select id="filter-code">
+                    <option value="">All Codes</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filter-course">Course</label>
+                <select id="filter-course">
+                    <option value="">All Courses</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filter-academic-year">Academic Year</label>
+                <select id="filter-academic-year">
+                    <option value="">All Academic Years</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="filter-year">Year</label>
+                <select id="filter-year">
+                    <option value="">All Years</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Students Table -->
+    <div class="table-section">
+        <div class="table-header">
+            <h3>Student Records</h3>
+            <div class="table-actions">
+                <span class="student-count">Total: <span id="studentCount">0</span></span>
+            </div>
+        </div>
+        <div class="table-container">
+            <table id="studentsTable">
+                <thead>
+                    <tr>
+                        <th>USN</th>
+                        <th>Name</th>
+                        <th>Course</th>
+                        <th>Code</th>
+                        <th>Academic Year</th>
+                        <th>Year</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTableBody">
+                </tbody>
+            </table>
+        </div>
+        <div class="table-footer-actions" style="margin-top:12px; display:flex; justify-content:flex-end;">
+            <button id="deleteAllStudentsBtn" class="danger-btn" title="Delete all students">Delete All Students</button>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/students.js' %}?v=10002"></script>
+<script src="{% static 'js/students_filters.js' %}"></script>
+{% endblock extra_scripts %}

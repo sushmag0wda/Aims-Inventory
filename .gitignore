@@ -1,0 +1,38 @@
+# Python artifacts
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+*.egg
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+*.env
+
+# Django specific
+/db.sqlite3
+/media/
+/staticfiles/
+*.log
+
+# IDE / editor files
+.idea/
+.vscode/
+*.code-workspace
+.DS_Store
+Thumbs.db
+
+# Coverage / testing
+htmlcov/
+.coverage*
+.pytest_cache/
+
+# Compiled translations
+*.mo
+
+# Node / frontend caches
+node_modules/

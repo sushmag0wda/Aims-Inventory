@@ -1,0 +1,155 @@
+/* pending.css - Styled similar to students.css */
+
+body {
+  background: white;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.pending-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  min-height: calc(100vh - 200px);
+}
+
+/* ================= Page Header ================= */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding: 20px 0;
+  border-bottom: 3px solid var(--purple);
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--purple);
+  margin: 0;
+}
+
+.header-actions { display: flex; gap: 12px; }
+
+.summary-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 14px;
+  color: #6c757d;
+}
+
+.book-type {
+  background: #e9ecef;
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-flex;
+  gap: 5px;
+}
+
+.book-type span {
+  font-weight: 600;
+  color: #212529;
+}
+
+.pending-loading { position: relative; overflow: hidden; color: transparent !important; }
+.pending-loading::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(148,163,184,0.35), rgba(255,255,255,0));
+  animation: shimmer 1.2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.table-loading-overlay .table-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.75);
+  z-index: 5;
+}
+.table-loading-overlay .table-container::after {
+  content: 'Loading pending data…';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 600;
+  color: var(--purple);
+  background: #fff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  z-index: 6;
+}
+
+.primary-btn, .secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all .2s ease;
+}
+.primary-btn { background: linear-gradient(135deg, var(--purple) 0%, var(--purple-2) 100%); color: #fff; box-shadow: 0 4px 12px rgba(82,53,150,.3); }
+.primary-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(82,53,150,.4); }
+
+.secondary-btn { background: #f3f4f6; color: #111827; }
+.secondary-btn:hover { background: #e5e7eb; }
+
+/* ================= Cards/Sections ================= */
+.filter-section,
+.table-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: 1px solid #e5e7eb;
+}
+
+.filter-section h3,
+.table-section h3 { color: var(--purple); font-weight: 600; margin: 0 0 16px; }
+
+.filter-controls { 
+  display: grid; 
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px; 
+}
+
+.filter-group { display: flex; flex-direction: column; gap: 6px; }
+.filter-group label { color: var(--purple); font-size: 13px; font-weight: 700; text-transform: uppercase; }
+.filter-group select { padding: 10px 14px; border: 2px solid #e5e7eb; border-radius: 8px; background: #f8fafc; transition: all .2s; }
+.filter-group select:focus { outline: none; border-color: var(--purple); background: #fff; box-shadow: 0 0 0 3px rgba(82,53,150,.1); }
+
+.table-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+
+/* ================= Table ================= */
+.table-container { width: 100%; overflow-x: auto; }
+.table-container { position: relative; }
+
+table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+th, td { padding: 10px 12px; border: 1px solid #e5e7eb; text-align: center; }
+th { background: var(--purple); color: #fff; font-weight: 700; }
+tr:nth-child(even) { background: #f9fafb; }
+tr:hover { background: #f3e9ff; }
+
+.status { font-weight: 700; }
+.status.pending { color: #EF4444; }
+.status.complete { color: #10B981; }
+
+/* ================= Responsive ================= */
+@media (max-width: 768px) {
+  .pending-container { padding: 20px 15px; }
+  .page-header { flex-direction: column; gap: 12px; text-align: center; }
+  table { min-width: 700px; }
+}

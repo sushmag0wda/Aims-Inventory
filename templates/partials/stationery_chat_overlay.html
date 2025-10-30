@@ -1,0 +1,56 @@
+{% load static %}
+<div class="admin-chat-overlay hidden" id="stationeryChatOverlay" data-role="stationery" data-user-id="{{ user.id }}" data-username="{{ user.username }}">
+    <div class="admin-chat-backdrop" data-action="close"></div>
+    <div class="admin-chat-window admin-chat-window--stationery">
+        <aside class="admin-chat-sidebar admin-chat-sidebar--stationery">
+            <div class="admin-chat-sidebar-header">
+                <h3>Chats</h3>
+            </div>
+            <div class="admin-chat-thread-list admin-chat-thread-list--stationery" id="stationeryChatThreadList">
+                <div class="admin-chat-thread active" id="stationeryChatThread">
+                    <div class="admin-chat-thread-avatar" id="stationeryChatAvatar">AD</div>
+                    <div class="admin-chat-thread-body">
+                        <h4 id="stationeryChatThreadTitle">Admin Team</h4>
+                        <div class="preview" id="stationeryChatThreadPreview">We are here to help.</div>
+                    </div>
+                    <div class="admin-chat-thread-meta">
+                        <span class="time" id="stationeryChatThreadTime"></span>
+                        <span class="badge hidden" id="stationeryChatThreadBadge"></span>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <section class="admin-chat-conversation admin-chat-conversation--stationery">
+            <div class="admin-chat-conversation-header">
+                <div>
+                    <h4 id="stationeryChatTitle">Admin Team</h4>
+                    <span id="stationeryChatSubtitle">Help Center thread</span>
+                </div>
+                <button type="button" class="admin-chat-close-btn" data-action="close" aria-label="Close chat overlay">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="admin-chat-conversation-body" id="stationeryChatMessages">
+                <div class="empty">No messages yet.</div>
+            </div>
+            <form class="admin-chat-composer" id="stationeryChatComposer" autocomplete="off">
+                <input type="file" id="stationeryChatFileInput" class="hidden-file-input" accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.csv">
+                <div class="composer-actions">
+                    <button type="button" class="attach-btn" id="stationeryChatAttachBtn" aria-label="Attach files">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                    <button type="button" class="voice-btn" id="stationeryChatVoiceBtn" aria-label="Record voice message">
+                        <i class="fas fa-microphone"></i>
+                    </button>
+                </div>
+                <div class="composer-input">
+                    <textarea id="stationeryChatMessageInput" placeholder="Type a message..." rows="2"></textarea>
+                    <div class="attachment-preview" id="stationeryChatAttachmentPreview"></div>
+                </div>
+                <button type="submit" class="send-btn" aria-label="Send message">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </section>
+    </div>
+</div>

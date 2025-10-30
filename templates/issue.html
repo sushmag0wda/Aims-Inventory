@@ -1,0 +1,186 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}New Issue{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/issue.css' %}">
+<link rel="stylesheet" href="{% static 'css/chat_widget.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="issue-container">
+    <div class="page-header">
+        <p class="page-subtitle page-subtitle--welcome">Welcome {{ user.get_full_name|default:user.username }}</p>
+        <h1>New Issue</h1>
+        <div class="header-actions"></div>
+    </div>
+
+    <div class="message-area"></div>
+
+    <div class="filter-section card">
+        <div class="card-header">
+            <h2>Filter</h2>
+        </div>
+        <div class="card-body">
+            <div class="field">
+                <label for="course-code">Course Code</label>
+                <select id="course-code">
+                    <option value="">Select Code</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="course">Course</label>
+                <select id="course">
+                    <option value="">Select Course</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="academic-year">Academic Year</label>
+                <select id="academic-year">
+                    <option value="">Select Academic Year</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="year">Year</label>
+                <select id="year">
+                    <option value="">Select Year</option>
+                </select>
+            </div>
+            <div class="field">
+                <label for="usn">USN</label>
+                <input id="usn" list="usnList" placeholder="Type or select USN" autocomplete="off">
+                <datalist id="usnList"></datalist>
+            </div>
+            <div class="field">
+                <label for="studentName">Student Name</label>
+                <select id="studentName">
+                    <option value="">Select Name</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-section card">
+        <div class="card-header">
+            <h2>Issue Items</h2>
+        </div>
+        <div class="card-body">
+            <table id="issueTable">
+                <thead>
+                    <tr>
+                        <th>Items</th>
+                        <th>Allotted</th>
+                        <th>Qty Issued</th>
+                        <th>Pending Qty</th>
+                        <th>New Issue</th>
+                        <th>Status</th>
+                        <th style="min-width: 150px;">Remarks</th> 
+                    </tr>
+                </thead>
+                <tbody id="issueTableBody">
+                    <tr data-item-code="2PN">
+                        <td>200 Pages Note Book (2PN)</td>
+                        <td class="allotted-qty">-</td>
+                        <td class="issued-qty">-</td>
+                        <td class="pending-qty">-</td>
+                        <td class="new-issue-cell">
+                            <input type="number" class="new-issue-input" data-item-code="2PN" value="0" min="0" max="0" style="width: 60px; text-align: right;">
+                        </td>
+                        <td class="item-status">-</td>
+                        <td><input type="text" class="item-remarks-input" data-item-code="2PN" style="width: 100%;"></td>
+                    </tr>
+                    <tr data-item-code="2PR">
+                        <td>200 Pages Record (2PR)</td>
+                        <td class="allotted-qty">-</td>
+                        <td class="issued-qty">-</td>
+                        <td class="pending-qty">-</td>
+                        <td class="new-issue-cell">
+                            <input type="number" class="new-issue-input" data-item-code="2PR" value="0" min="0" max="0" style="width: 60px; text-align: right;">
+                        </td>
+                        <td class="item-status">-</td>
+                        <td><input type="text" class="item-remarks-input" data-item-code="2PR" style="width: 100%;"></td>
+                    </tr>
+                    <tr data-item-code="2PO">
+                        <td>200 Pages Observation (2PO)</td>
+                        <td class="allotted-qty">-</td>
+                        <td class="issued-qty">-</td>
+                        <td class="pending-qty">-</td>
+                        <td class="new-issue-cell">
+                            <input type="number" class="new-issue-input" data-item-code="2PO" value="0" min="0" max="0" style="width: 60px; text-align: right;">
+                        </td>
+                        <td class="item-status">-</td>
+                        <td><input type="text" class="item-remarks-input" data-item-code="2PO" style="width: 100%;"></td>
+                    </tr>
+                    <tr data-item-code="1PN">
+                        <td>100 Pages Note Book (1PN)</td>
+                        <td class="allotted-qty">-</td>
+                        <td class="issued-qty">-</td>
+                        <td class="pending-qty">-</td>
+                        <td class="new-issue-cell">
+                            <input type="number" class="new-issue-input" data-item-code="1PN" value="0" min="0" max="0" style="width: 60px; text-align: right;">
+                        </td>
+                        <td class="item-status">-</td>
+                        <td><input type="text" class="item-remarks-input" data-item-code="1PN" style="width: 100%;"></td>
+                    </tr>
+                    <tr data-item-code="1PR">
+                        <td>100 Pages Record (1PR)</td>
+                        <td class="allotted-qty">-</td>
+                        <td class="issued-qty">-</td>
+                        <td class="pending-qty">-</td>
+                        <td class="new-issue-cell">
+                            <input type="number" class="new-issue-input" data-item-code="1PR" value="0" min="0" max="0" style="width: 60px; text-align: right;">
+                        </td>
+                        <td class="item-status">-</td>
+                        <td><input type="text" class="item-remarks-input" data-item-code="1PR" style="width: 100%;"></td>
+                    </tr>
+                    <tr data-item-code="1PO">
+                        <td>100 Pages Observation (1PO)</td>
+                        <td class="allotted-qty">-</td>
+                        <td class="issued-qty">-</td>
+                        <td class="pending-qty">-</td>
+                        <td class="new-issue-cell">
+                            <input type="number" class="new-issue-input" data-item-code="1PO" value="0" min="0" max="0" style="width: 60px; text-align: right;">
+                        </td>
+                        <td class="item-status">-</td>
+                        <td><input type="text" class="item-remarks-input" data-item-code="1PO" style="width: 100%;"></td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <td id="totalAllotted">-</td>
+                        <td id="totalIssued">-</td>
+                        <td id="totalPending">-</td>
+                        <td id="totalNew">-</td>
+                        <td>-</td>
+                        <td>-</td> 
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+
+    <div class="remarks-section card">
+        <div class="card-header">
+            <h2>Overall Remarks</h2>
+        </div>
+        <div class="card-body">
+            <textarea id="overallRemarks" style="width: 100%; box-sizing: border-box; resize: vertical; min-height: 80px; padding: 8px; border-radius: 4px; border: 1px solid #ccc;"></textarea>
+        </div>
+    </div>
+
+    <div class="action-buttons">
+        <button id="issueBtn" class="primary-btn">Issue Items</button>
+        <button id="generate-report-btn" class="secondary-btn" data-url="{% url 'report' %}">Generate Report</button>
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/issue.js' %}"></script>
+<script src="{% static 'js/issue_adapter.js' %}"></script>
+{% if user.is_authenticated and user.role == 'admin' %}
+<script src="{% static 'js/chat_widget.js' %}"></script>
+{% endif %}
+{% endblock %}

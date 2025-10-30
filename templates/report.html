@@ -1,0 +1,77 @@
+<!-- report.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Student Receipt{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/report.css' %}?v=2025-10-17-03">
+<style>
+  /* Ensure the form is centered and sized for A4 when rendered to PDF */
+  #reportContainer { background:#fff; box-sizing:border-box; padding:24px !important; width:100% !important; max-width:1100px !important; margin:24px auto !important; }
+  #reportContainer table { width:100% !important; border-collapse:collapse; table-layout: fixed !important; }
+  #reportContainer th, #reportContainer td { word-break: break-word; }
+  /* Try to avoid splitting table header/rows across pages in PDF */
+  #reportContainer thead { break-inside: avoid; page-break-inside: avoid; -webkit-region-break-inside: avoid; }
+  #reportContainer tr { break-inside: avoid; page-break-inside: avoid; -webkit-region-break-inside: avoid; }
+  #reportContainer .report-table-wrapper { overflow-x: hidden !important; overflow-y: visible; }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="report-page">
+    <div class="report-layout">
+        <div id="reportContainer">
+            <div class="report-header">
+                <div class="titles">
+                    <h1>BOOKS ISSUED ACKNOWLEDGEMENT RECEIPT</h1>
+                    <h2>STUDENT COPY</h2>
+                </div>
+            </div>
+            <div class="info-row">
+                <div><strong>DATE:</strong> <span id="date">#N/A</span></div>
+                <div><strong>USN:</strong> <span id="usn">#N/A</span></div>
+                <div><strong>PROGRAM CODE:</strong> <span id="programCode">#N/A</span></div>
+                <div><strong>STUDENT NAME:</strong> <span id="studentName">#N/A</span></div>
+            </div>
+            <div class="info-row">
+                <div><strong>PROGRAM:</strong> <span id="programName">#N/A</span></div>
+                <div><strong>ACADEMIC YEAR:</strong> <span id="academicYear">#N/A</span></div>
+                <div><strong>YEAR:</strong> <span id="year">#N/A</span></div>
+            </div>
+            <div class="report-table-wrapper" style="overflow:visible;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ITEMS ISSUED</th>
+                            <th>Allotted</th>
+                            <th>Qty Issued</th>
+                            <th>Pending<br>Qty</th>
+                            <th>Status</th>
+                            <th>REMARKS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportItemsBody"></tbody>
+                </table>
+            </div>
+            <div class="info-row" style="margin-top: 20px;">
+                <strong>OVERALL REMARK:</strong> <span id="overallRemark">#N/A</span>
+            </div>
+            <div class="email-section">
+                <p><strong>Inventory E-mail id:</strong> <a href="mailto:aims@theaims.ac.in" id="inventoryEmail">aims@theaims.ac.in</a></p>
+                <p><strong>Enter Student E-mail id:</strong> <a href="#" id="studentEmail" class="email-link">#N/A</a></p>
+                <p style="text-align:right;">SD/-</p>
+            </div>
+        </div>
+        <div class="report-actions-bar" id="reportActionsBar">
+            <button id="backToIssuePageBtn" class="back-btn">Back to Issue</button>
+            <button id="generatePdfBtn" class="primary-btn" title="Download PDF">Generate PDF</button>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="{% static 'js/report.js' %}?v=2025-10-17-02"></script>
+{% endblock %}

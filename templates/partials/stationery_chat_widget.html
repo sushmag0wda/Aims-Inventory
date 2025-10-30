@@ -1,0 +1,8 @@
+{% include 'partials/stationery_chat_overlay.html' %}
+<div class="chat-widget" data-role="{{ user.role|default:'' }}">
+    <button type="button" class="chat-toggle" aria-label="Open help center">
+        <i class="fas fa-comments"></i>
+        <span>{% if user.role == 'admin' %}Team Inbox{% else %}Help Center{% endif %}</span>
+        <span class="chat-badge hidden">0</span>
+    </button>
+</div>

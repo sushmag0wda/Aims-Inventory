@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Manage Users | AIMS Inventory{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+<link rel="stylesheet" href="{% static 'css/manage_users.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="main-wrapper" data-user-role="admin" data-is-super-admin="{{ is_super_admin|yesno:'true,false' }}" data-super-admin-username="{{ super_admin_username }}">
+    <section class="manage-users">
+        <header class="page-header">
+            <h2>Manage Users</h2>
+            <p>Review pending registrations, approve or reject access, and respond to help center messages.</p>
+        </header>
+
+        <div class="filters">
+            <div class="form-group">
+                <label for="userSearch">Search</label>
+                <input type="text" id="userSearch" placeholder="Search by username or email">
+            </div>
+            <div class="form-group">
+                <label for="statusFilter">Status</label>
+                <select id="statusFilter">
+                    <option value="">All</option>
+                    <option value="pending">Pending</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+            </div>
+            <button type="button" id="refreshUsers" class="primary-btn">Refresh</button>
+        </div>
+
+        <div class="user-table-wrapper">
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Joined</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="userTableBody">
+                    <tr>
+                        <td colspan="6" class="empty">Loading users...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/manage_users.js' %}"></script>
+<script id="manage-users-config" type="application/json">{{ manage_users_config|safe }}</script>
+<script>
+  (function() {
+    const configEl = document.getElementById('manage-users-config');
+    const raw = configEl ? configEl.textContent : '{}';
+    try {
+      window.MANAGE_USERS_CONFIG = JSON.parse(raw || '{}');
+    } catch (err) {
+      window.MANAGE_USERS_CONFIG = {};
+    }
+  })();
+</script>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}AIMS Inventory | Welcome{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    body {
+        background: #ffffff !important;
+        overflow-y: auto;
+    }
+</style>
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block footer %}{% endblock %}
+
+{% block content %}
+<main class="main-wrapper landing-wrapper">
+    <section class="landing-splash" id="landingSplash" aria-hidden="false">
+        <div class="splash-content">
+            <div class="splash-brand-row">
+                <img src="{% static 'images/aims-logo.webp' %}" alt="AIMS Institutes Logo" class="splash-logo">
+            </div>
+            <h2 class="splash-title">Aims inventory</h2>
+            <p class="splash-subtext">By <strong>Sushma Gowda</strong><br>MCA(2023-2025)</p>
+            </div>
+    </section>
+
+    <section class="landing-content" id="landingContent" aria-hidden="true">
+        <div class="landing-loader" id="landingLoader" aria-hidden="false">
+            <div class="spinner"></div>
+            <p>Preparing experience...</p>
+        </div>
+        <div class="landing-inner" id="landingInner" aria-hidden="true">
+            <header class="landing-header">
+                <img src="{% static 'images/aims-logo.webp' %}" alt="AIMS Logo" class="landing-brand">
+                <div class="landing-brand-text">
+                    <h2>AIMS Inventory Portal</h2>
+                    <p>Choose your workspace to continue.</p>
+                </div>
+            </header>
+            <div class="landing-body">
+                <div class="portal-card">
+                    <h3>Administrator Access</h3>
+                    <p>Complete control over departments, students, and inventory lifecycle.</p>
+                    <a href="{% url 'login' %}?role=admin" class="portal-btn primary">Enter Admin Portal</a>
+                </div>
+                <div class="portal-card">
+                    <h3>Stationery Maintainer</h3>
+                    <p>Issue items, manage receipts, and respond to student requests.</p>
+                    <a href="{% url 'login' %}?role=stationery" class="portal-btn">Go to Stationery Portal</a>
+                </div>
+            </div>
+            <footer class="landing-footer-note">
+                <p><strong>Support:</strong> aims@theaims.ac.in</p>
+            </footer>
+        </div>
+    </section>
+</main>
+{% endblock %}

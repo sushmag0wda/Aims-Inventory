@@ -1,0 +1,67 @@
+/* Footer Styles */
+.site-footer {
+  background: var(--purple);
+  color: var(--white);
+  text-align: center;
+  padding: 25px 20px;
+  font-size: 15px;
+  line-height: 1.8;
+  width: 100%;
+  margin-top: 50px;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.site-footer p {
+  margin: 8px 0;
+  letter-spacing: 0.3px;
+  font-weight: 400;
+}
+
+.site-footer p:first-child {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.site-footer a {
+  color: var(--white);
+  text-decoration: none;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.site-footer a:hover {
+  opacity: 0.9;
+  text-decoration: underline;
+  transform: translateY(-1px);
+}
+
+/* Email link styles */
+.email-link {
+  color: #5da8ff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.email-link:hover {
+  color: #8bc1ff;
+  background-color: rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  footer {
+    font-size: 13px;
+    padding: 16px 15px;
+  }
+}

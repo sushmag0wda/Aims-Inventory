@@ -1,0 +1,256 @@
+/* ---------- Page & Container ---------- */
+.department-container {
+  padding: 35px 25px;
+  background: #f4f4f4;
+  min-height: calc(100vh - 100px);
+  font-family: Arial, sans-serif;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.bulk-upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--purple-2) 100%);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(82, 53, 150, 0.3);
+}
+
+.bulk-upload-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(82, 53, 150, 0.4);
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ---------- Card / Form Wrapper ---------- */
+.department-card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  max-width: 1200px;
+  margin: 0 auto 40px auto;
+}
+
+/* Two-column form layout */
+.department-card .form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(280px, 1fr));
+  gap: 20px 24px;
+}
+
+.department-card .form-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* ---------- Header ---------- */
+.department-header {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #523596;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 8px;
+}
+
+/* ---------- Form Labels ---------- */
+.department-card label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #523596;
+  font-size: 13px;
+}
+
+/* ---------- Inputs & Dropdowns ---------- */
+.department-card input,
+.department-card select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  font-size: 14px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  appearance: none;
+}
+
+.department-card input:focus,
+.department-card select:focus {
+  outline: none;
+  border-color: #523596;
+  box-shadow: 0 0 6px rgba(82, 53, 150, 0.2);
+}
+
+.department-card select {
+  padding-right: 30px;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6'><path fill='%23523596' d='M0 0l5 6 5-6z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 6px;
+  cursor: pointer;
+}
+
+/* ---------- Buttons ---------- */
+.department-card .btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--purple-2) 100%);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 12px rgba(82,53,150,.3);
+}
+
+.department-card .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(82,53,150,.4);
+}
+
+/* ---------- Table Wrapper ---------- */
+.department-table-wrapper {
+  overflow-x: auto;
+  margin-top: 20px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ---------- Table Styling ---------- */
+.department-table {
+  width: 100%;
+  min-width: 500px;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.department-table th,
+.department-table td {
+  padding: 12px 15px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #eee;
+}
+
+.department-table thead th {
+  background-color: #523596;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.department-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.department-table tr:hover td {
+  background-color: #f3e8ff;
+  transition: background 0.3s ease;
+}
+
+/* ---------- Table Action Buttons (stacked like Students) ---------- */
+.department-table .edit-btn,
+.department-table .delete-btn,
+.department-table .save-btn,
+.department-table .cancel-btn {
+  display: block;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 5px 0;
+  box-shadow: 0 3px 10px rgba(82, 53, 150, 0.3);
+  text-align: center;
+}
+
+.department-table .edit-btn,
+.department-table .save-btn {
+  background-color: #3b82f6; /* Blue for edit/save */
+}
+
+.department-table .edit-btn:hover,
+.department-table .save-btn:hover {
+  background-color: #2563eb; /* Darker blue on hover */
+}
+
+.department-table .delete-btn,
+.department-table .cancel-btn {
+  background-color: #ef4444; /* Red for delete/cancel */
+}
+
+.department-table .delete-btn:hover,
+.department-table .cancel-btn:hover {
+  background-color: #dc2626; /* Darker red on hover */
+}
+
+/* Make buttons more compact in table cells */
+.department-table td {
+  white-space: nowrap;
+}
+
+/* Add some spacing between buttons */
+.department-table button:not(:last-child) {
+  margin-right: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .department-container {
+    padding: 25px 15px;
+  }
+  .department-card .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .department-header {
+    font-size: 24px;
+    margin-bottom: 18px;
+  }
+  .department-table th,
+  .department-table td {
+    font-size: 13px;
+    padding: 10px 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .department-container {
+    padding: 20px 12px;
+  }
+  .department-header {
+    font-size: 22px;
+    margin-bottom: 15px;
+  }
+  .department-table th,
+  .department-table td {
+    font-size: 12px;
+    padding: 8px 6px;
+  }
+}

@@ -1,0 +1,201 @@
+<!-- dashboard.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dashboard | AIMS Inventory{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<main class="dashboard-container report-container">
+    <div class="dashboard-header-section">
+        <div class="dashboard-header-top">
+            <div>
+                <h2 class="dashboard-header">Dashboard Overview</h2>
+                <p class="dashboard-welcome">Welcome {{ request.user.username|default:""|title }} to AIMS Inventory</p>
+            </div>
+            <div class="dashboard-header-actions">
+                <button class="notification-btn" id="dashboardNotificationsBtn" aria-label="Notification Center">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge hidden" id="dashboardNotificationBadge">0</span>
+                </button>
+                <div class="notification-panel hidden" id="dashboardNotificationsPanel">
+                    <div class="notification-panel-header">
+                        <span>Notification Center</span>
+                        <button type="button" id="dashboardNotificationsClose" class="notification-close" aria-label="Close notifications">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <div class="notification-panel-body" id="dashboardNotificationsList"></div>
+                </div>
+            </div>
+        </div>
+        <p class="dashboard-subtitle">Real-time inventory and student management statistics</p>
+    </div>
+    
+    <!-- Error container (initially hidden) -->
+    <div id="error-container" style="display: none; background: #fee2e2; color: #7f1d1d; padding: 16px; border-radius: 8px; margin: 20px 0;"></div>
+
+    <!-- Summary Stats Cards -->
+    <section class="stats-grid">
+        <a href="{% url 'departments' %}" class="stat-card stat-purple">
+            <div class="stat-icon">
+                <i class="fas fa-building"></i>
+            </div>
+            <div class="stat-content">
+                <h3 id="total-departments">0</h3>
+                <p>Total Departments</p>
+                <span class="stat-trend"><i class="fas fa-circle-notch"></i> Active</span>
+            </div>
+        </a>
+        
+        <a href="{% url 'students' %}" class="stat-card stat-orange">
+            <div class="stat-icon">
+                <i class="fas fa-user-graduate"></i>
+            </div>
+            <div class="stat-content">
+                <h3 id="registered-students">0</h3>
+                <p>Registered Students</p>
+                <span class="stat-trend"><i class="fas fa-user-check"></i> Enrolled</span>
+            </div>
+        </a>
+        
+        <a href="{% url 'items' %}" class="stat-card stat-success">
+            <div class="stat-icon">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <div class="stat-content">
+                <h3 id="books-available">0</h3>
+                <p>Total Books Available</p>
+                <span class="stat-trend"><i class="fas fa-layer-group"></i> All Types</span>
+            </div>
+        </a>
+        
+        <a href="{% url 'issue' %}" class="stat-card stat-info">
+            <div class="stat-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-content">
+                <h3 id="books-issued">0</h3>
+                <p>Books Given to Students</p>
+                <span class="stat-trend" id="issued-percentage">0%</span>
+            </div>
+        </a>
+        
+        <a href="{% url 'pending' %}" class="stat-card stat-warning">
+            <div class="stat-icon">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-content">
+                <h3 id="books-pending">0</h3>
+                <p>Books Not Yet Issued</p>
+                <span class="stat-trend" id="pending-percentage">0%</span>
+            </div>
+        </a>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="charts-section">
+        <div class="chart-container" data-chart="booksType">
+            <div class="chart-header" style="margin-bottom: 5px;">
+                <h3 style="font-size: 15px; color: #4B5563;"><i class="fas fa-clock"></i> Pending Books by Type</h3>
+            </div>
+            <div class="chart-body">
+                <div class="chart-canvas">
+                    <canvas id="booksTypeChart"></canvas>
+                </div>
+                <div class="chart-legend" data-role="chart-legend"></div>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-header">
+                <h3><i class="fas fa-chart-bar"></i> Top 5 Departments by Student Count</h3>
+                <p style="font-size:12px;color:#6B7280;margin:4px 0 0 0;">Departments with the most enrolled students</p>
+            </div>
+            <div class="chart-body">
+                <canvas id="topDepartmentsChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- Issue Trends & Recent Activity -->
+    <section class="bottom-section">
+        <div class="chart-container full-width">
+            <div class="chart-header">
+                <h3><i class="fas fa-chart-line"></i> Daily Book Issues (Last 7 Days)</h3>
+                <p style="font-size:12px;color:#6B7280;margin:4px 0 0 0;">Shows how many books were issued to students each day</p>
+            </div>
+            <div class="chart-body">
+                <canvas id="issueTrendsChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="activity-container">
+            <div class="chart-header">
+                <h3><i class="fas fa-history"></i> Recent Activity</h3>
+            </div>
+            <div class="activity-body" id="recent-activity">
+                <div class="activity-item loading">
+                    <i class="fas fa-spinner fa-spin"></i> Loading recent activity...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section class="quick-actions">
+        <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+        <div class="actions-grid">
+            <a href="{% url 'issue' %}" class="action-btn">
+                <i class="fas fa-plus-circle"></i>
+                <span>New Issue</span>
+            </a>
+            <a href="{% url 'students' %}" class="action-btn">
+                <i class="fas fa-user-plus"></i>
+                <span>Add Student</span>
+            </a>
+            <a href="{% url 'departments' %}" class="action-btn">
+                <i class="fas fa-building"></i>
+                <span>Manage Departments</span>
+            </a>
+            <a href="{% url 'pending' %}" class="action-btn">
+                <i class="fas fa-list-check"></i>
+                <span>View Pending</span>
+            </a>
+        </div>
+    </section>
+
+</main>
+{% if user.is_authenticated %}
+<div class="chat-widget" data-role="{{ user.role|default:'' }}">
+    <button type="button" class="chat-toggle" aria-label="Open help center">
+        <i class="fas fa-comments"></i>
+        <span>{% if user.role == 'admin' %}Team Inbox{% else %}Help Center{% endif %}</span>
+        <span class="chat-badge hidden">0</span>
+    </button>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/dashboard.js' %}?v=10002"></script>
+{% if user.is_authenticated and user.role == 'admin' %}
+<script src="{% static 'js/chat_widget.js' %}"></script>
+{% endif %}
+<script>
+    // Add error handling for uncaught errors
+    window.addEventListener('error', function(e) {
+        console.error('Global error:', e);
+        const errorContainer = document.getElementById('error-container');
+        if (errorContainer) {
+            errorContainer.style.display = 'block';
+            errorContainer.textContent = 'An error occurred while loading the dashboard. Please check the console for details.';
+        }
+    });
+</script>
+{% endblock %}

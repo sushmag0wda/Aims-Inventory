@@ -1,0 +1,180 @@
+<!-- base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}AIMS Inventory{% endblock %}</title>
+    
+    <!-- Prevent favicon.ico 404 error -->
+    <link rel="icon" href="data:,">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% if user.is_authenticated and user.role != 'stationery' %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/forms.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/scrollbar.css' %}">
+    {% if user.is_authenticated %}
+    <link rel="stylesheet" href="{% static 'css/chat_widget.css' %}">
+    {% endif %}
+    {% if user.is_authenticated and user.role == 'stationery' and request.path != '/' and request.path != '/login/' and request.path != '/register/' %}
+    <link rel="stylesheet" href="{% static 'css/stationery_theme.css' %}?v=10001">
+    {% endif %}
+    {% if user.is_authenticated %}
+    <link rel="stylesheet" href="{% static 'css/admin_chat.css' %}?v=10003">
+    {% endif %}
+    {% block extra_head %}{% endblock %}
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .site-header {
+            flex-shrink: 0;
+        }
+        
+        .main-content-wrapper {
+            flex: 1 0 auto;
+            width: 100%;
+            padding-bottom: 40px;
+        }
+        
+        .site-footer {
+            flex-shrink: 0;
+            width: 100%;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body{% if user.is_authenticated and user.role == 'stationery' and request.path != '/' and request.path != '/login/' and request.path != '/register/' %} class="stationery-portal"{% endif %}>
+    {% block header %}
+        <header class="site-header">
+            {% include "header.html" %}
+        </header>
+    {% endblock %}
+
+    {% if user.is_authenticated and user.role == 'stationery' and request.path == '/issue/' %}
+    <div class="chat-notification-center chat-notification-center--floating" data-role="{{ user.role|default:'' }}">
+        <button type="button" class="notification-btn chat-notification-toggle" aria-label="Help center notifications">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge hidden chat-notification-badge"></span>
+        </button>
+        <div class="notification-panel hidden chat-notification-panel">
+            <div class="notification-panel-header">
+                <span>Help Center Notifications</span>
+                <button type="button" class="notification-close chat-notification-close" aria-label="Close notifications">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="notification-panel-body chat-notification-list">
+                <p class="notification-empty">No notifications yet.</p>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="main-content-wrapper">
+        {% block content %}{% endblock %}
+    </div>
+
+    {% if user.is_authenticated and request.path == '/issue/' %}
+    {% if user.role == 'stationery' %}
+    {% include 'partials/stationery_chat_widget.html' %}
+    {% endif %}
+    {% if user.role == 'admin' %}
+    {% include 'partials/admin_chat_widget.html' %}
+    {% endif %}
+    {% endif %}
+
+    {% if user.is_authenticated and user.role == 'admin' and request.path != '/' and request.path != '/login/' and request.path != '/register/' %}
+    <div class="admin-chat-overlay hidden" id="adminChatOverlay" data-role="{{ user.role|default:'' }}" data-user-id="{{ user.id }}" data-username="{{ user.username }}">
+        <div class="admin-chat-backdrop" data-action="close"></div>
+        <div class="admin-chat-window">
+            <aside class="admin-chat-sidebar">
+                <div class="admin-chat-sidebar-header">
+                    <div class="admin-chat-sidebar-title">
+                        <h3>Team Inbox</h3>
+                        <p>Chat with stationery users</p>
+                    </div>
+                    <button type="button" class="admin-chat-sidebar-close" data-action="close" aria-label="Close team inbox">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="admin-chat-search">
+                    <div class="input-wrapper">
+                        <i class="fas fa-search"></i>
+                        <input type="search" placeholder="Search users" id="adminChatSearch">
+                    </div>
+                    <button type="button" class="refresh" id="adminChatRefresh" aria-label="Refresh list">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+                <div class="admin-chat-thread-list" id="adminChatThreadList"></div>
+            </aside>
+            <section class="admin-chat-conversation">
+                <header class="admin-chat-conversation-header">
+                    <div>
+                        <h4 id="adminChatConversationTitle">Help Center thread</h4>
+                        <span id="adminChatConversationSub">Select a user to start chatting</span>
+                    </div>
+                    <button type="button" class="admin-chat-close-btn" data-action="close" aria-label="Close team inbox">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </header>
+                <div class="admin-chat-conversation-body" id="adminChatMessages">
+                    <div class="empty">Select a user to view messages.</div>
+                </div>
+                <form class="admin-chat-composer" id="adminChatComposer" autocomplete="off">
+                    <input type="hidden" name="target_user" id="adminChatTargetUser">
+                    <input type="file" id="adminChatFileInput" class="hidden-file-input" accept="image/*,video/*,audio/*,.pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,.csv">
+                    <div class="composer-actions">
+                        <button type="button" class="attach-btn" id="adminChatAttachBtn" aria-label="Attach files">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                        <button type="button" class="voice-btn" id="adminChatVoiceBtn" aria-label="Record voice message">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                    </div>
+                    <div class="composer-input">
+                        <textarea id="adminChatMessageInput" placeholder="Type a reply..." rows="2"></textarea>
+                        <div class="attachment-preview" id="adminChatAttachmentPreview"></div>
+                    </div>
+                    <button type="submit" class="send-btn" aria-label="Send message">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </section>
+        </div>
+    </div>
+    {% endif %}
+
+    {% block footer %}
+        <footer class="site-footer">{% include "footer.html" %}</footer>
+    {% endblock %}
+
+    <script src="{% static 'js/auth.js' %}"></script>
+    <script src="{% static 'js/scroll-button.js' %}?v=1"></script>
+    {% block extra_scripts %}{% endblock %}
+    <script src="{% static 'js/common.js' %}"></script>
+    {% if user.is_authenticated and user.role == 'admin' %}
+    <script src="{% static 'js/admin_chat.js' %}?v=10002"></script>
+    {% elif user.is_authenticated and user.role == 'stationery' and request.path != '/' and request.path != '/login/' and request.path != '/register/' %}
+    <script src="{% static 'js/user_chat.js' %}?v=10002"></script>
+    {% endif %}
+</body>
+</html>

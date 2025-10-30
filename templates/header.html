@@ -1,0 +1,32 @@
+<!-- header.html -->
+{% load static %}
+<header class="site-header">
+    <div class="logo">
+        <img src="{% static 'images/aims-logo.webp' %}" alt="Logo">
+        <h1>AIMS Inventory</h1>
+    </div>
+    <nav>
+        <ul class="nav-links">
+            {% if user.is_authenticated and user.role == 'admin' %}
+                <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li><a href="{% url 'items' %}">Inventory</a></li>
+                <li><a href="{% url 'departments' %}">Departments</a></li>
+                <li><a href="{% url 'students' %}">Students</a></li>
+                <li><a href="{% url 'issue' %}">Issue Books</a></li>
+                <li><a href="{% url 'pending' %}">Pending</a></li>
+                <li><a href="{% url 'manage-users' %}">Manage Users</a></li>
+                <li><a href="#">Logout</a></li>
+            {% elif user.is_authenticated and user.role == 'stationery' %}
+                <li><a href="{% url 'issue' %}">Issue Books</a></li>
+                <li><a href="#">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</header>

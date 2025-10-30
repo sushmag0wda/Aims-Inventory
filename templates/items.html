@@ -1,0 +1,125 @@
+<!-- items.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Items | AIMS Inventory{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/items.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<main class="dashboard-container items-container">
+    <div class="page-header">
+        <h1 style="display:flex;align-items:center;gap:8px;color:var(--purple);">
+            <i class="fas fa-boxes-stacked"></i> Inventory
+        </h1>
+        <div class="header-actions"></div>
+    </div>
+
+    <!-- Add Item Form -->
+    <div class="chart-container">
+        <div class="chart-header"><h3><i class="fas fa-plus-circle"></i> Create New Item</h3></div>
+        <form class="items-form" id="item-form">
+            <div class="form-simple">
+                <div class="new-item-block">
+                    <input type="text" id="new-item-code" placeholder="Item Code (e.g., 3PN)" required>
+                    <input type="text" id="new-item-name" placeholder="Item Name (e.g., 300 Pages Note Book)" required>
+                </div>
+                <input type="number" id="item-qty" placeholder="Initial Quantity (optional)" min="0">
+                <button type="submit" class="primary-btn">Create New Item</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-header"><h3><i class="fas fa-clipboard-check"></i> Received Stock Summary</h3></div>
+        <div class="received-summary" id="receivedSummary"></div>
+    </div>
+
+    <!-- Bar Chart Container -->
+    <div class="chart-container">
+        <div class="chart-header"><h3><i class="fas fa-chart-bar"></i> Inventory Overview</h3></div>
+        <div class="chart-wrapper">
+            <canvas id="inventoryChart"></canvas>
+        </div>
+    </div>
+
+    <h4 style="margin-top:10px;color:#6B7280;font-weight:600;">Click on the bar chart to increase or decrease the quantities.</h4>
+
+    <!-- Orders & Logs (front-end only, persisted in localStorage) -->
+    <div class="chart-container" style="margin-top:18px;">
+        <div class="chart-header"><h3><i class="fas fa-truck-ramp-box"></i> Orders</h3></div>
+        <form id="order-form" class="items-form" style="padding:10px 0;">
+            <div class="form-row" style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+                <select id="order-item-code" required style="min-width:260px;">
+                    <option value="" disabled selected>Select an Item</option>
+                </select>
+                <input type="number" id="order-qty" placeholder="Qty to Order" min="1" required style="min-width:140px;">
+                <input type="text" id="order-ref" placeholder="Order Ref/PO# (optional)" style="min-width:200px;">
+                <button type="submit" class="primary-btn">Add Order</button>
+            </div>
+        </form>
+        <div style="overflow:auto;">
+            <table class="default-table" style="width:100%;min-width:760px;">
+                <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Item</th>
+                        <th>Ordered</th>
+                        <th>Received</th>
+                        <th>Pending</th>
+                        <th>Status</th>
+                        <th>Ref</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="chart-container" style="margin-top:18px;">
+        <div class="chart-header stock-log-header">
+            <h3><i class="fas fa-clock-rotate-left"></i> Stock Change Log</h3>
+            <div class="stock-log-filters">
+                <select id="stock-log-year" class="stock-log-filter">
+                    <option value="">All Years</option>
+                </select>
+                <select id="stock-log-month" class="stock-log-filter">
+                    <option value="">All Months</option>
+                </select>
+                <button id="export-stock-log" class="header-btn"><i class="fas fa-file-excel"></i> Generate Excel</button>
+                <button id="clear-stock-log" class="header-btn" style="background:#ef4444;color:white;"><i class="fas fa-trash"></i> Delete All</button>
+            </div>
+        </div>
+        <div style="overflow:auto;">
+            <table class="default-table" style="width:100%;min-width:720px;">
+                <thead>
+                    <tr>
+                        <th>Sl No</th>
+                        <th>Item</th>
+                        <th>Change</th>
+                        <th>Reason</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="stock-log-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Success Message Area -->
+    <div class="message-area"></div>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script src="{% static 'js/items2.js' %}"></script>
+{% endblock %}

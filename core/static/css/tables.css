@@ -1,0 +1,102 @@
+/* tables.css - Table Styling */
+
+/* Table Container */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  padding: 15px 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1200px;
+}
+
+th, td {
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+  white-space: nowrap;
+}
+
+th {
+  background-color: #523596;
+  color: #fff;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background: #f5f5f5;
+}
+
+tr:hover {
+  background: #FFDFE4;
+}
+
+.status-yes {
+  color: #10B981;
+  font-weight: bold;
+}
+
+.status-no {
+  color: #EF4444;
+  font-weight: bold;
+}
+
+/* ================= Action Buttons in Table ================= */
+.table-container td button {
+    display: block;           /* stack vertically */
+    width: 70px;              /* uniform size */
+    margin: 4px auto;         /* small spacing, center horizontally */
+    padding: 4px 6px;         /* smaller padding */
+    font-size: 12px;          /* smaller font */
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.table-container td button.edit-btn {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.table-container td button.edit-btn:hover {
+    background-color: #2563eb;
+}
+
+.table-container td button.delete-btn {
+    background-color: #ef4444;
+    color: white;
+}
+
+.table-container td button.delete-btn:hover {
+    background-color: #dc2626;
+}
+
+/* ================= Responsive ================= */
+@media (max-width: 1024px) {
+  table {
+    min-width: 900px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  table {
+    min-width: 600px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  table {
+    min-width: 100%;
+    font-size: 12px;
+  }
+
+  th, td {
+    padding: 8px 6px;
+  }
+}

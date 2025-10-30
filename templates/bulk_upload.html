@@ -1,0 +1,166 @@
+<!-- bulk_upload.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Bulk Upload Students{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/bulk_upload.css' %}">
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<main class="bulk-container">
+    <div class="page-header">
+        <h1>Bulk Upload Students</h1>
+        <div class="header-actions">
+            <button id="instructions-btn" class="secondary-btn" type="button">Import Guide</button>
+            <button id="backToStudentsBtn" class="secondary-btn">Back to Students</button>
+        </div>
+    </div>
+
+    <div id="instructions-modal" class="instructions-modal" aria-hidden="true" hidden inert>
+        <div class="instructions-dialog" role="dialog" aria-modal="true" aria-labelledby="instructions-title">
+            <button type="button" id="instructions-close" class="instructions-close" aria-label="Close guide" title="Close">
+                ×
+            </button>
+            <h2 id="instructions-title">📘 Import Guide</h2>
+
+            <h3>What to upload</h3>
+            <p>Upload a single Excel workbook that contains:</p>
+            <ul class="instructions-notes">
+                <li><strong>Departments</strong> sheet – defines courses and cohort metadata.</li>
+                <li><strong>One or more student sheets</strong> – list the students for each cohort (you can keep a sheet per combination).</li>
+            </ul>
+
+            <h3>Departments sheet columns</h3>
+            <div class="instructions-table-wrapper">
+                <table class="instructions-table">
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course</th>
+                            <th>Program Type</th>
+                            <th>Academic Year</th>
+                            <th>Year</th>
+                            <th>Intake</th>
+                            <th>Existing</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ACC-06</td>
+                            <td>MCA</td>
+                            <td>PG</td>
+                            <td>2023–2025</td>
+                            <td>Year 1</td>
+                            <td>60</td>
+                            <td>58</td>
+                        </tr>
+                        <tr>
+                            <td>ACC-06</td>
+                            <td>MCA</td>
+                            <td>PG</td>
+                            <td>2023–2025</td>
+                            <td>Year 2</td>
+                            <td>60</td>
+                            <td>56</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Student sheet columns</h3>
+            <div class="instructions-table-wrapper">
+                <table class="instructions-table">
+                    <thead>
+                        <tr>
+                            <th>Course Code</th>
+                            <th>Course</th>
+                            <th>Academic Year</th>
+                            <th>Year</th>
+                            <th>USN</th>
+                            <th>Name</th>
+                            <th>E-mail</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>ACC-06</td>
+                            <td>MCA</td>
+                            <td>2023–2025</td>
+                            <td>Year 1</td>
+                            <td>MCA23001</td>
+                            <td>Sushma G</td>
+                            <td>sushma@gmail.com</td>
+                            <td>9876500001</td>
+                        </tr>
+                        <tr>
+                            <td>ACC-06</td>
+                            <td>MCA</td>
+                            <td>2023–2025</td>
+                            <td>Year 1</td>
+                            <td>MCA23002</td>
+                            <td>Neha R</td>
+                            <td>neha@gmail.com</td>
+                            <td>9876500002</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>How it works</h3>
+            <ul class="instructions-summary">
+                <li>The importer creates or updates departments for every unique <strong>Academic Year + Year</strong> combination in the Departments sheet.</li>
+                <li>Each student row is matched to its department using the course, academic year, and year columns.</li>
+            </ul>
+
+            <h3>Quick example recap</h3>
+            <p>With the sample above:</p>
+            <ul class="instructions-summary">
+                <li>Two departments are created: <strong>MCA 2023–2025 Year 1</strong> and <strong>MCA 2023–2025 Year 2</strong>.</li>
+                <li>Students listed in the `MCA_2023-2025_Y1` sheet are automatically mapped to <strong>MCA 2023–2025 Year 1</strong>.</li>
+            </ul>
+
+            <div class="instructions-actions">
+                <button type="button" id="download-template-btn" class="primary-btn instructions-download">Download Blank Workbook</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-section">
+        <h3>Upload File</h3>
+        <div class="upload-section">
+            <input type="file" id="excel-file" accept=".xlsx,.xls,.csv">
+            <button id="import-btn" class="primary-btn">Import</button>
+        </div>
+    </div>
+
+    <div class="table-section table-wrapper">
+        <table class="students-table">
+            <thead>
+                <tr>
+                    <th>Course code</th>
+                    <th>Course</th>
+                    <th>Program Type</th>
+                    <th>Academic Year</th>
+                    <th>Year</th>
+                    <th>Intake</th>
+                    <th>Existing</th>
+                    <th>USN</th>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                    <th>Phone</th>
+                </tr>
+            </thead>
+            <tbody id="imported-students-body">
+            </tbody>
+        </table>
+    </div>
+</main>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/bulk_upload.js' %}"></script>
+{% endblock %}

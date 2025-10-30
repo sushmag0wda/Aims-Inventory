@@ -1,0 +1,134 @@
+<!-- departments.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Department Statistics{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/department.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="department-container">
+    <div class="page-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;border-bottom:3px solid var(--purple);padding-bottom:10px;">
+        <h2 class="department-header" style="margin:0;">Department Statistics</h2>
+        <div class="header-actions">
+            <a href="{% url 'bulk-upload' %}?source=departments" class="bulk-upload-btn">
+                <i class="fas fa-upload"></i>
+                Bulk Upload
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Quick Overview Section -->
+    <div class="dept-overview-section" style="background:white;border-radius:12px;padding:24px;margin-bottom:24px;box-shadow:0 2px 8px rgba(0,0,0,0.06);">
+        <div class="overview-header" style="margin-bottom:20px;">
+            <h3 style="color:var(--purple);margin:0 0 8px 0;font-size:18px;"><i class="fas fa-chart-bar"></i> Quick Overview</h3>
+            <p style="color:var(--muted);font-size:14px;margin:0;">Summary of all departments and book allocations</p>
+        </div>
+        
+        <!-- Summary Stats -->
+        <div class="summary-stats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-bottom:24px;">
+            <div class="stat-box" style="background:#f9fafb;padding:16px;border-radius:8px;border-left:4px solid var(--purple);">
+                <div style="font-size:28px;font-weight:700;color:var(--purple);" id="overview-total-depts">0</div>
+                <div style="font-size:13px;color:var(--muted);font-weight:600;">Total Departments</div>
+            </div>
+            <div class="stat-box" style="background:#f9fafb;padding:16px;border-radius:8px;border-left:4px solid var(--orange);">
+                <div style="display:flex;gap:12px;align-items:center;">
+                    <div>
+                        <div style="font-size:11px;color:var(--muted);margin-bottom:2px;">Registered</div>
+                        <div style="font-size:24px;font-weight:700;color:var(--orange);" id="overview-enrolled-students">0</div>
+                    </div>
+                    <div style="font-size:20px;color:#d1d5db;">/</div>
+                    <div>
+                        <div style="font-size:11px;color:var(--muted);margin-bottom:2px;">Strength</div>
+                        <div style="font-size:24px;font-weight:700;color:#6B7280;" id="overview-expected-students">0</div>
+                    </div>
+                </div>
+                <div style="font-size:13px;color:var(--muted);font-weight:600;margin-top:8px;">Students</div>
+            </div>
+        </div>
+        
+        <!-- Top Departments -->
+        <div class="top-departments">
+            <h4 style="color:var(--purple);margin:0 0 16px 0;font-size:16px;"><i class="fas fa-trophy"></i> Top Departments by Strength</h4>
+            <div id="top-5-cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:16px;">
+                <!-- Cards will be inserted here by JavaScript -->
+            </div>
+            <div style="text-align:center;">
+                <button id="view-more-btn" style="background:var(--purple);color:white;border:none;padding:10px 24px;border-radius:6px;font-size:13px;cursor:pointer;display:none;transition:all 0.3s;">
+                    <i class="fas fa-chevron-down"></i> View More
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Department Form -->
+    <div class="department-card">
+        <h3 style="margin-top:0;color:#523596;">Add Department</h3>
+        <form id="addDepartmentForm">
+            <div class="form-grid">
+                <div class="form-col">
+                    <input type="text" id="course-name" placeholder="Course Name">
+                    <input type="text" id="course-code" placeholder="Course Code">
+                    <input type="text" id="academic-year" placeholder="Academic Year (e.g., 2023-2025)">
+                    <input type="text" id="course-year" placeholder="Year">
+                    <input type="text" id="program-type" placeholder="UG/PG">
+                    <input type="number" id="intake" placeholder="Intake">
+                    <input type="number" id="existing" placeholder="Existing">
+                </div>
+                <div class="form-col">
+                    <input type="number" id="notebook200" placeholder="200 Pages Note Book (2PN)">
+                    <input type="number" id="record200" placeholder="200 Pages Record (2PR)">
+                    <input type="number" id="observation200" placeholder="200 Pages Observation (2PO)">
+                    <input type="number" id="notebook100" placeholder="100 Pages Note Book (1PN)">
+                    <input type="number" id="record100" placeholder="100 Pages Record (1PR)">
+                    <input type="number" id="observation100" placeholder="100 Pages Observation (1PO)">
+                    <div id="all-item-dynamic" style="display:grid;grid-template-columns:1fr;gap:10px;margin-top:6px;"></div>
+                    <input type="number" id="total" placeholder="Total" readonly>
+                </div>
+            </div>
+            <div class="form-actions" style="margin-top:10px;display:flex;justify-content:center;">
+                <button type="submit" id="add-department-btn" class="btn-primary">Add Department</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Existing Departments Table -->
+    <div class="department-list-header" style="display:flex;justify-content:space-between;align-items:center;margin:16px 0;">
+        <h3 style="margin:0;color:#523596;">Existing Departments</h3>
+        <div id="departments-record-count" class="muted">Total records: 0</div>
+    </div>
+
+    <div class="department-table-wrapper">
+        <table class="department-table">
+            <thead>
+                <tr>
+                    <th>Course</th>
+                    <th>Course Code</th>
+                    <th>Academic Year</th>
+                    <th>Year</th>
+                    <th>Program Type</th>
+                    <th>Intake</th>
+                    <th>Existing</th>
+                    <th data-code="2PN">200 Pages Note Book (2PN)</th>
+                    <th data-code="2PR">200 Pages Record (2PR)</th>
+                    <th data-code="2PO">200 Pages Observation (2PO)</th>
+                    <th data-code="1PN">100 Pages Note Book (1PN)</th>
+                    <th data-code="1PR">100 Pages Record (1PR)</th>
+                    <th data-code="1PO">100 Pages Observation (1PO)</th>
+                    <th data-column="total">Total</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="departments-body">
+            </tbody>
+        </table>
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/departments.js' %}"></script>
+{% endblock %}

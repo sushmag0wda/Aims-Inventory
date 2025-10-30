@@ -1,0 +1,59 @@
+/* Custom Scrollbar Styling - Sleek and Minimal */
+
+/* For Webkit browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c4c4c4;
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #523596;
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #c4c4c4 #f1f1f1;
+}
+
+/* Table scrollbar - even more subtle */
+.table-container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #d4d4d4;
+    border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #523596;
+}
+
+/* Hide scrollbar when not hovering (optional) */
+.table-container {
+    overflow: auto;
+}
+
+.table-container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.table-container:hover::-webkit-scrollbar {
+    opacity: 1;
+}

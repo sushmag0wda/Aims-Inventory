@@ -1,0 +1,147 @@
+<!-- pending.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Pending Books Report{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/pending.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="pending-container">
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>Pending Books Report</h1>
+        <div class="header-actions">
+            <button id="generateReportButton" class="primary-btn">
+                <i class="fas fa-sync"></i>
+                Generate/Refresh
+            </button>
+        </div>
+    </div>
+
+    <div class="message-area"></div>
+
+    <!-- Pending Books Summary -->
+    <div class="pending-summary">
+        <div class="summary-row">
+            <span class="summary-label">Total Pending Books To be Issued:</span>
+            <span class="summary-value" id="total-pending">0</span>
+        </div>
+        <div class="summary-details"></div>
+    </div>
+
+    <!-- Filter Section -->
+    <div class="filter-section">
+        <h3>Filter</h3>
+        <div class="filter-controls">
+            <div class="filter-group">
+                <label for="courseCode">Course Code</label>
+                <select id="courseCode">
+                    <option value="">Select Course Code</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="courseName">Course</label>
+                <select id="courseName">
+                    <option value="">Select Course</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="academicYear">Academic Year</label>
+                <select id="academicYear">
+                    <option value="">Select Academic Year</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="year">Year</label>
+                <select id="year">
+                    <option value="">Select Year</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-section">
+        <div class="table-header">
+            <h3>Program-wise Pending</h3>
+            <span id="pendingCount" style="margin-left:auto;font-weight:600;color:#4b5563">Total records: 0</span>
+            <div class="table-actions">
+                <div class="pdf-btn-container">
+                    <button id="generatePdf" class="secondary-btn">
+                        <i class="fas fa-file-excel"></i>
+                        Generate Excel
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="table-container">
+            <table id="pendingTable">
+                <thead>
+                    <tr data-dynamic="1"></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="{% static 'js/pending2.js' %}?v=9"></script>
+
+<style>
+/* Pending Books Summary Styles */
+.pending-summary {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin: 15px 0;
+    border: 1px solid #e9ecef;
+}
+
+.summary-row {
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.summary-label {
+    font-weight: 600;
+    color: #495057;
+}
+
+.summary-value {
+    font-weight: 700;
+    color: #0d6efd;
+    font-size: 1.1em;
+}
+
+.summary-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.book-type {
+    background: #e9ecef;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-flex;
+    gap: 5px;
+}
+
+.book-type span {
+    font-weight: 600;
+    color: #212529;
+}
+</style>
+
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Help Center | AIMS Inventory{% endblock %}
+
+{% block extra_head %}
+<style>
+  .help-center-placeholder {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #4b5563;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .help-center-placeholder button {
+    background: linear-gradient(135deg, #523596 0%, #7c3aed 100%);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<main class="main-wrapper">
+  <section class="help-center-placeholder">
+    <div>
+      <h2 style="margin-bottom: 8px;">Help Center</h2>
+      <p style="max-width: 420px; margin: 0 auto;">The Help Center now lives in the chat inbox. Click below to open your conversation with the admin team.</p>
+    </div>
+    <button type="button" id="openHelpChat">Open Chat</button>
+  </section>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const btn = document.getElementById('openHelpChat');
+    if (!btn) return;
+    btn.addEventListener('click', () => {
+      if (window.AIMSAdminChat && typeof window.AIMSAdminChat.open === 'function') {
+        window.AIMSAdminChat.open();
+      }
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Stationery Inventory | Register{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/forms.css' %}">
+{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block footer %}{% endblock %}
+
+{% block content %}
+<main class="main-wrapper">
+    <div class="form-container">
+        <h2>Register</h2>
+        <p class="form-note">Only admins can create new accounts. New accounts are created as Stationery Maintainers by default.</p>
+        <form id="registrationForm">
+            {% csrf_token %} 
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" name="confirm-password" required>
+            </div>
+            <button type="submit">Register</button>
+            <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+        </form>
+    </div>
+</main>
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/register.js' %}"></script>
+{% endblock %}

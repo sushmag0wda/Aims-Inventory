@@ -1,0 +1,522 @@
+:root {
+  --stationery-bg: #f4f4f4;
+  --stationery-surface: #ffffff;
+  --stationery-elevated: #ffffff;
+  --stationery-border: #ded7cf;
+  --stationery-soft-border: #e8e2db;
+  --stationery-shadow: rgba(60, 42, 33, 0.08);
+  --stationery-heading: #362217;
+  --stationery-body: #362217;
+  --stationery-muted: #4a2f21;
+  --stationery-accent: #7c4b2b;
+  --stationery-accent-strong: #5e351d;
+  --stationery-accent-soft: rgba(124, 75, 43, 0.12);
+  --stationery-button-text: #ffffff;
+  --stationery-font-heading: 'Playfair Display', 'Times New Roman', serif;
+  --stationery-font-body: 'Source Sans 3', 'Segoe UI', sans-serif;
+}
+
+.stationery-portal,
+body.stationery-portal,
+.stationery-portal .main-content-wrapper,
+.stationery-portal main {
+  background: var(--stationery-bg);
+  color: var(--stationery-body);
+  font-family: var(--stationery-font-body);
+  font-weight: 600;
+}
+
+.stationery-portal .site-header {
+  background: #ffffff;
+  color: var(--stationery-heading);
+  border-bottom: 1px solid var(--stationery-border);
+  box-shadow: 0 18px 40px var(--stationery-shadow);
+}
+
+.stationery-portal .site-header .logo,
+.stationery-portal .site-header .logo a,
+.stationery-portal .site-header .logo span,
+.stationery-portal .site-header h1 {
+  color: var(--stationery-heading);
+  font-family: var(--stationery-font-heading);
+  letter-spacing: 0.02em;
+}
+
+
+.stationery-portal .site-header nav ul li a {
+  color: var(--stationery-body);
+}
+
+.stationery-portal .site-header nav ul li a:hover,
+.stationery-portal .site-header nav ul li a.active {
+  color: var(--stationery-heading);
+  background: var(--stationery-accent-soft);
+}
+
+.stationery-portal .main-content-wrapper {
+  background: var(--stationery-bg);
+  padding: 32px 0 72px;
+}
+
+.stationery-portal .dashboard-container,
+.stationery-portal .students-container,
+.stationery-portal .departments-container,
+.stationery-portal .items-container,
+.stationery-portal .issue-container,
+.stationery-portal .pending-container,
+.stationery-portal .report-container {
+  background: var(--stationery-surface);
+  border-radius: 28px;
+  padding: 36px;
+  box-shadow: 0 32px 70px var(--stationery-shadow);
+  border: 1px solid var(--stationery-border);
+}
+
+.stationery-portal h1,
+.stationery-portal h2,
+.stationery-portal h3,
+.stationery-portal h4 {
+  color: var(--stationery-heading);
+  font-family: var(--stationery-font-heading);
+  font-weight: 700;
+}
+
+.stationery-portal h1 { font-size: 2.4rem; }
+.stationery-portal h2 { font-size: 1.9rem; }
+.stationery-portal h3 { font-size: 1.4rem; }
+
+.stationery-portal .card {
+  background: var(--stationery-elevated);
+  border: 1px solid var(--stationery-border);
+  box-shadow: 0 22px 60px var(--stationery-shadow);
+  border-radius: 24px;
+}
+
+.stationery-portal .card h3,
+.stationery-portal .card p {
+  color: var(--stationery-body);
+  font-weight: 600;
+}
+
+.stationery-portal .hamburger span {
+  background: #7a5231;
+}
+
+.stationery-portal .hamburger.active span {
+  background: #7a5231;
+}
+
+.stationery-portal .table-container {
+  background: var(--stationery-elevated);
+  border: 1px solid var(--stationery-border);
+  box-shadow: 0 26px 60px var(--stationery-shadow);
+}
+
+.stationery-portal table th {
+  background: var(--stationery-accent);
+  color: var(--stationery-button-text);
+  font-family: var(--stationery-font-body);
+  letter-spacing: 0.05em;
+}
+
+.stationery-portal table tr:nth-child(even) {
+  background: rgba(245, 237, 225, 0.6);
+}
+
+.stationery-portal table tr:hover {
+  background: rgba(198, 168, 125, 0.14);
+}
+
+.stationery-portal .form-container,
+.stationery-portal .table-container,
+.stationery-portal .cards,
+.stationery-portal .filters,
+.stationery-portal .filter-card {
+  border-radius: 24px;
+}
+
+.stationery-portal .form-group label {
+  color: var(--stationery-muted);
+  font-weight: 700;
+}
+
+.stationery-portal .form-group input,
+.stationery-portal .form-group select {
+  background: #ffffff;
+  border: 1px solid var(--stationery-soft-border);
+  color: var(--stationery-body);
+  font-weight: 600;
+}
+
+.stationery-portal .form-group input:focus,
+.stationery-portal .form-group select:focus {
+  border-color: var(--stationery-accent);
+  box-shadow: 0 0 0 3px rgba(198, 168, 125, 0.22);
+}
+
+.stationery-portal button,
+.stationery-portal .action-buttons button,
+.stationery-portal .button-container button,
+.stationery-portal .pdf-btn-container button {
+  background: var(--stationery-accent);
+  color: var(--stationery-button-text);
+  box-shadow: 0 18px 38px rgba(198, 168, 125, 0.28);
+  border: none;
+  font-weight: 600;
+}
+
+.stationery-portal button:hover,
+.stationery-portal .action-buttons button:hover,
+.stationery-portal .button-container button:hover,
+.stationery-portal .pdf-btn-container button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 48px rgba(182, 147, 104, 0.3);
+  background: var(--stationery-accent-strong);
+}
+
+
+.stationery-portal .site-footer {
+  background: #7a5231;
+  color: #fff9f0;
+  border-top: 1px solid rgba(255, 249, 240, 0.25);
+  box-shadow: 0 -10px 30px rgba(74, 47, 32, 0.25);
+}
+
+.stationery-portal .site-footer a {
+  color: #fff9f0;
+}
+
+.stationery-portal .site-footer a:hover {
+  color: #ffe8c9;
+}
+
+.stationery-portal .notification-btn.chat-notification-toggle,
+.stationery-portal .chat-notification-toggle {
+  background: #b5864f;
+  box-shadow: 0 18px 36px rgba(146, 107, 65, 0.28);
+  color: #fdf8f2;
+}
+
+.stationery-portal .chat-notification-badge {
+  background: #fff9f0;
+  color: #5a3c28;
+  box-shadow: 0 4px 10px rgba(46, 28, 18, 0.18);
+}
+
+.stationery-portal .notification-panel {
+  background: var(--stationery-elevated);
+  border: 1px solid var(--stationery-border);
+  box-shadow: 0 24px 60px rgba(109, 90, 75, 0.24);
+}
+
+.stationery-portal .notification-panel .notification-panel-header {
+  color: var(--stationery-heading);
+  font-family: var(--stationery-font-heading);
+}
+
+.stationery-portal .notification-panel .notification-item .icon {
+  background: rgba(146, 107, 65, 0.15);
+  color: var(--stationery-heading);
+}
+
+.stationery-portal .notification-panel .notification-dismiss:hover {
+  background: rgba(198, 168, 125, 0.14);
+  color: var(--stationery-heading);
+}
+
+.stationery-portal .site-header nav ul li a.active {
+  color: var(--stationery-heading);
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.stationery-portal .site-header nav ul li a {
+  border-radius: 999px;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.stationery-portal .site-header nav ul li a:hover {
+  transform: translateY(-1px);
+}
+
+.stationery-portal .filter-card,
+.stationery-portal .filters,
+.stationery-portal .summary-card {
+  background: var(--stationery-surface);
+  border: 1px solid var(--stationery-border);
+  box-shadow: 0 20px 52px var(--stationery-shadow);
+}
+
+.stationery-portal .filters h3,
+.stationery-portal .filter-card h3,
+.stationery-portal .filter-card label {
+  color: var(--stationery-heading);
+  font-family: var(--stationery-font-heading);
+  font-weight: 700;
+}
+
+.stationery-portal .issue-container .heading,
+.stationery-portal .issue-container h2,
+.stationery-portal .issue-container h3 {
+  color: var(--stationery-heading);
+}
+
+.stationery-portal .status-badge,
+.stationery-portal .badge,
+.stationery-portal .chat-badge {
+  background: var(--stationery-accent);
+  color: var(--stationery-button-text);
+  box-shadow: 0 10px 24px rgba(198, 168, 125, 0.32);
+}
+
+.stationery-portal input[type="text"],
+.stationery-portal input[type="number"],
+.stationery-portal input[type="email"],
+.stationery-portal textarea {
+  background: var(--stationery-elevated);
+  border: 1px solid var(--stationery-soft-border);
+  border-radius: 14px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.stationery-portal input[type="text"]:focus,
+.stationery-portal input[type="number"]:focus,
+.stationery-portal input[type="email"]:focus,
+.stationery-portal textarea:focus {
+  border-color: var(--stationery-accent);
+  box-shadow: 0 0 0 3px rgba(198, 168, 125, 0.18);
+}
+
+.stationery-portal .admin-chat-window--stationery {
+  background: var(--stationery-elevated);
+  border-radius: 28px;
+  border: 1px solid var(--stationery-border);
+  box-shadow: 0 34px 70px var(--stationery-shadow);
+  grid-template-columns: 320px 1fr;
+}
+
+.stationery-portal .admin-chat-sidebar--stationery {
+  background: var(--stationery-surface);
+  border-right: 1px solid var(--stationery-border);
+}
+
+.stationery-portal .admin-chat-thread-list--stationery {
+  background: transparent;
+}
+
+.stationery-portal .admin-chat-thread-list--stationery .admin-chat-thread {
+  background: rgba(198, 168, 125, 0.18);
+  border-radius: 18px;
+  margin: 8px 16px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.stationery-portal .admin-chat-thread-list--stationery .admin-chat-thread:hover {
+  background: rgba(198, 168, 125, 0.28);
+}
+
+.stationery-portal .admin-chat-thread-list--stationery .admin-chat-thread.active {
+  background: rgba(198, 168, 125, 0.44);
+  box-shadow: 0 14px 34px rgba(198, 168, 125, 0.28);
+}
+
+.stationery-portal .admin-chat-thread-list--stationery .admin-chat-thread-avatar {
+  background: var(--stationery-accent);
+  color: var(--stationery-button-text);
+}
+
+.stationery-portal .admin-chat-thread-list--stationery .admin-chat-thread-body h4 {
+  color: var(--stationery-heading);
+}
+
+.stationery-portal .admin-chat-thread-list--stationery .admin-chat-thread-body .preview {
+  color: var(--stationery-muted);
+}
+
+.stationery-portal .admin-chat-conversation--stationery {
+  background: var(--stationery-surface);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-conversation-header {
+  background: var(--stationery-elevated);
+  border-bottom: 1px solid var(--stationery-border);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-conversation-header h4 {
+  color: var(--stationery-heading);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-conversation-header span {
+  color: var(--stationery-muted);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-close-btn {
+  background: rgba(198, 168, 125, 0.22);
+  color: var(--stationery-heading);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-close-btn:hover {
+  background: rgba(182, 147, 104, 0.32);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-conversation-body {
+  background: var(--stationery-surface);
+  background-image: none;
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-message {
+  background: var(--stationery-elevated);
+  color: var(--stationery-body);
+  box-shadow: 0 12px 26px var(--stationery-shadow);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-message.self {
+  background: #8c6239;
+  color: #fff9f0;
+  box-shadow: 0 18px 36px rgba(74, 47, 32, 0.35);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-message.self .meta {
+  color: rgba(255, 249, 240, 0.75);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-composer {
+  background: var(--stationery-elevated);
+  border-top: 1px solid var(--stationery-border);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .composer-actions .attach-btn,
+.stationery-portal .admin-chat-conversation--stationery .composer-actions .voice-btn {
+  background: var(--stationery-accent);
+  color: var(--stationery-button-text);
+  box-shadow: 0 10px 24px rgba(198, 168, 125, 0.26);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .composer-actions .voice-btn i {
+  color: var(--stationery-button-text);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .composer-input textarea {
+  background: var(--stationery-surface);
+  border-radius: 16px;
+  border: 1px solid var(--stationery-soft-border);
+  color: var(--stationery-body);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-composer .send-btn {
+  background: #7a5231;
+  box-shadow: 0 14px 32px rgba(74, 47, 32, 0.28);
+  color: #fffaf3;
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-composer .send-btn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 40px rgba(74, 47, 32, 0.34);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-composer .send-btn:disabled {
+  background: rgba(122, 82, 49, 0.5);
+  color: rgba(255, 250, 243, 0.8);
+}
+
+.stationery-portal .smart-scroll-btn {
+  background: #4e3422 !important;
+  color: #fff9f0 !important;
+  box-shadow: 0 12px 28px rgba(46, 28, 18, 0.36) !important;
+}
+
+.stationery-portal .smart-scroll-btn:hover {
+  background: #3b2718 !important;
+  box-shadow: 0 16px 36px rgba(46, 28, 18, 0.42) !important;
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-message.self .chat-attachment {
+  background: rgba(255, 249, 240, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 249, 240, 0.3);
+  color: #fff9f0;
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-message.self .chat-attachment .icon {
+  background: rgba(255, 249, 240, 0.25);
+  color: #fff9f0;
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-message.self .chat-attachment .details .name {
+  color: #fff9f0;
+  font-weight: 600;
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-message.self .chat-attachment .details .size,
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-message.self .chat-attachment .details .meta {
+  color: rgba(255, 249, 240, 0.8);
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-message.self .chat-attachment .actions .btn {
+  background: rgba(255, 249, 240, 0.18);
+  color: #fff9f0;
+}
+
+.stationery-portal .admin-chat-conversation--stationery .admin-chat-message.self .chat-attachment .actions .btn:hover {
+  background: rgba(255, 249, 240, 0.28);
+}
+
+.stationery-portal .issue-container {
+  background: transparent;
+}
+
+.stationery-portal .issue-container .page-header {
+  border-bottom: 2px solid var(--stationery-border);
+  padding-bottom: 18px;
+}
+
+.stationery-portal .issue-container .page-header h1 {
+  color: var(--stationery-heading);
+  font-family: var(--stationery-font-heading);
+}
+
+.stationery-portal .issue-container .card-header h2,
+.stationery-portal .issue-container .card-header h3,
+.stationery-portal .issue-container .card-header h4 {
+  color: var(--stationery-heading);
+  font-family: var(--stationery-font-heading);
+}
+
+.stationery-portal .issue-container .filter-section,
+.stationery-portal .issue-container .table-section,
+.stationery-portal .issue-container .remarks-section {
+  background: #ffffff;
+  border: 1px solid var(--stationery-border);
+  box-shadow: 0 18px 48px var(--stationery-shadow);
+}
+
+.stationery-portal .issue-container .filter-section .card-body {
+  background: var(--stationery-surface);
+  border-radius: 12px;
+}
+
+.stationery-portal .issue-container .field label {
+  color: var(--stationery-muted);
+  font-weight: 700;
+}
+
+.stationery-portal .issue-container .field select,
+.stationery-portal .issue-container .field input {
+  border: 1px solid var(--stationery-soft-border);
+  background: #ffffff;
+  color: var(--stationery-body);
+  font-weight: 600;
+}
+
+.stationery-portal .issue-container .field select:focus,
+.stationery-portal .issue-container .field input:focus {
+  border-color: var(--stationery-accent);
+  box-shadow: 0 0 0 3px rgba(198, 168, 125, 0.18);
+}
+
+.stationery-portal .issue-container table th {
+  background: var(--stationery-accent);
+  color: var(--stationery-button-text);
+}
+
+.stationery-portal .issue-container table tr:hover {
+  background: rgba(198, 168, 125, 0.12);
+}
