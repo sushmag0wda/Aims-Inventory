@@ -22,12 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-k6aqo84*jngyw=$432s@^5m!utfao7y=r^$$*onomw4k2j1ejp')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY') or os.environ.get('SECRET_KEY', 'django-insecure-k6aqo84*jngyw=$432s@^5m!utfao7y=r^$$*onomw4k2j1ejp')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DJANGO_DEBUG', 'True').lower() in ('1', 'true', 'yes', 'on')
+debug_raw = os.environ.get('DJANGO_DEBUG', os.environ.get('DEBUG', 'True'))
+DEBUG = str(debug_raw).lower() in ('1', 'true', 'yes', 'on')
 
-_allowed_hosts = os.environ.get('DJANGO_ALLOWED_HOSTS', '')
+_allowed_hosts = os.environ.get('DJANGO_ALLOWED_HOSTS') or os.environ.get('ALLOWED_HOSTS', '')
 ALLOWED_HOSTS = [host.strip() for host in _allowed_hosts.split(',') if host.strip()]
 if not ALLOWED_HOSTS:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
