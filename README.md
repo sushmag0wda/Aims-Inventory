@@ -81,32 +81,29 @@ You now have the Book Management System running on your computer.
 
 ### **Dashboard & Inventory**
 
-**Admin Dashboard**  
-![Admin module]
-(screenshots/landing.png)
-(screenshots/landing2.png)
-(screenshots/dashboard.png)
-(screenshots/dashboard2.png)
-(screenshots/in1.png)
-(screenshots/in2.png)
-(screenshots/in3.png)
-(screenshots/in4.png)
-(screenshots/d1.png)
-(screenshots/bulk.png)
-(screenshots/import_guide.png)
-(screenshots/d2.png)
-(screenshots/s1.png)
-(screenshots/s2.png)
-(screenshots/i1.png)
-(screenshots/report.png)
-(screenshots/pending.png)
-(screenshots/musers.png)
-(screenshots/notification.png)
-(screenshots/ahelp.png)
-(screenshots/in4.png)
+#### Admin views
+![Landing page](screenshots/landing.png)
+![Landing (hero section)](screenshots/landing2.png)
+![Dashboard overview](screenshots/dashboard.png)
+![Dashboard analytics](screenshots/dashboard2.png)
+![Inventory list - view 1](screenshots/in1.png)
+![Inventory list - view 2](screenshots/in2.png)
+![Inventory detail](screenshots/in3.png)
+![Inventory chart](screenshots/in4.png)
+![Department summary](screenshots/d1.png)
+![Bulk upload wizard](screenshots/bulk.png)
+![Import guide](screenshots/import_guide.png)
+![Department detail](screenshots/d2.png)
+![Students list](screenshots/s1.png)
+![Student detail](screenshots/s2.png)
+![Issue form](screenshots/i1.png)
+![Report view](screenshots/report.png)
+![Pending approvals](screenshots/pending.png)
+![Manage users](screenshots/musers.png)
+![Notifications panel](screenshots/notification.png)
+![Admin help centre](screenshots/ahelp.png)
 
-**User Dashboard**  
-![User module]
-(screenshots/userissue.png)
-(screenshots/uhelp.png)
+#### Stationery views
+![Stationery issue workflow](screenshots/userissue.png)
+![Stationery help centre](screenshots/uhelp.png)
 
