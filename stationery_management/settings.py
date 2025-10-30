@@ -30,8 +30,13 @@ DEBUG = str(debug_raw).lower() in ('1', 'true', 'yes', 'on')
 
 _allowed_hosts = os.environ.get('DJANGO_ALLOWED_HOSTS') or os.environ.get('ALLOWED_HOSTS', '')
 ALLOWED_HOSTS = [host.strip() for host in _allowed_hosts.split(',') if host.strip()]
-if not ALLOWED_HOSTS:
-    ALLOWED_HOSTS = ['localhost', '127.0.0.1', '[::1]']
+
+render_host = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if render_host:
+    ALLOWED_HOSTS.append(render_host.strip())
+
+ALLOWED_HOSTS.extend(['localhost', '127.0.0.1', '[::1]'])
+ALLOWED_HOSTS = [host for i, host in enumerate(ALLOWED_HOSTS) if host and host not in ALLOWED_HOSTS[:i]]
 
 # Application definition
 
