@@ -43,6 +43,17 @@ ALLOWED_HOSTS.extend([
 ])
 ALLOWED_HOSTS = [host for i, host in enumerate(ALLOWED_HOSTS) if host and host not in ALLOWED_HOSTS[:i]]
 
+_csrf_origins = os.environ.get('DJANGO_CSRF_TRUSTED_ORIGINS') or os.environ.get('CSRF_TRUSTED_ORIGINS', '')
+CSRF_TRUSTED_ORIGINS = [origin.strip() for origin in _csrf_origins.split(',') if origin.strip()]
+
+if render_host:
+    CSRF_TRUSTED_ORIGINS.append(f"https://{render_host.strip()}")
+
+CSRF_TRUSTED_ORIGINS.extend([
+    'https://aims-inventory.onrender.com',
+])
+CSRF_TRUSTED_ORIGINS = [origin for i, origin in enumerate(CSRF_TRUSTED_ORIGINS) if origin and origin not in CSRF_TRUSTED_ORIGINS[:i]]
+
 # Application definition
 
 INSTALLED_APPS = [

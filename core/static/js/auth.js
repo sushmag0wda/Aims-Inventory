@@ -1,6 +1,6 @@
 // core/static/js/auth.js - RECOMMENDED UPDATE
 
-document.addEventListener('DOMContentLoaded', () => {
+function initAuthScripts() {
 
     // -------------------- Helper: Get CSRF Token --------------------
     function getCookie(name) {
@@ -276,4 +276,10 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchNotifications();
         setInterval(fetchNotifications, 60000);
     }
-});
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAuthScripts);
+} else {
+    initAuthScripts();
+}

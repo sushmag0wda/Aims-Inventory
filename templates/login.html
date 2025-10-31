@@ -19,6 +19,7 @@
 	<div class="form-container">
 		<h2>{% if selected_role == 'admin' %}Admin Login{% else %}Stationery Login{% endif %}</h2>
 		<form id="login-form">
+			{% csrf_token %}
 			<input type="hidden" id="role" value="{{ selected_role }}">
 			<div class="form-group">
 				<label for="username">Username</label>
