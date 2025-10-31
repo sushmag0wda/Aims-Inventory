@@ -95,8 +95,13 @@ function initAuthScripts() {
                     },
                     body: JSON.stringify({ username, password, role })
                 });
-                const data = await response.json();
+                const contentType = response.headers.get('content-type') || '';
+                const payload = contentType.includes('application/json')
+                    ? await response.json()
+                    : { message: await response.text() };
+
                 if (response.ok) {
+                    const data = payload || {};
                     if (data.redirect) {
                         window.location.href = data.redirect;
                     } else if (data.role === 'admin') {
@@ -105,11 +110,12 @@ function initAuthScripts() {
                         window.location.href = '/issue/';
                     }
                 } else {
-                    alert(data.message || 'Login failed. Invalid username or password.');
+                    const message = payload?.message || payload?.detail || payload || 'Login failed. Invalid username or password.';
+                    alert(message);
                 }
             } catch (err) {
                 console.error('Login error:', err);
-                alert('Network error occurred. Please try again.');
+                alert(err?.message?.includes('CSRF') ? 'Authentication blocked by CSRF protection. Please refresh and try again.' : 'Network error occurred. Please try again.');
             }
         });
     }
