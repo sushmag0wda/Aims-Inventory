@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',  # Added for CORS
     'django.middleware.common.CommonMiddleware',
@@ -145,12 +146,14 @@ STATICFILES_DIRS = [
     BASE_DIR / 'core' / 'static', 
 ]
 
-# --- FIX 2: EXPLICITLY TELL DJANGO WHICH FINDER TO USE (Resolves duplicate file warnings) ---
+# --- FIX 2: EXPLICITLY TELL DJANGO WHICH FINDERS TO USE ---
 STATICFILES_FINDERS = [
-    # Uses the folders listed in STATICFILES_DIRS
     'django.contrib.staticfiles.finders.FileSystemFinder',
-    # We remove 'django.contrib.staticfiles.finders.AppDirectoriesFinder' to prevent conflicts
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
+
+# WhiteNoise storage backend for serving compressed static assets in production
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
